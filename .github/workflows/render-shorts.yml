@@ -43,22 +43,35 @@ jobs:
 
       - name: Copy project assets to remotion-composer
         run: |
+          set -e
+          PROJECT="projects/${{ github.event.inputs.project }}"
+          echo "Project path: $PROJECT"
+          ls -la "$PROJECT/"
+
           # Copy fonts
           mkdir -p remotion-composer/public/fonts
-          cp -r "projects/${{ github.event.inputs.project }}/assets/fonts/"* remotion-composer/public/fonts/ 2>/dev/null || true
+          if [ -d "$PROJECT/assets/fonts" ]; then
+            cp "$PROJECT/assets/fonts/"* remotion-composer/public/fonts/ 2>/dev/null || true
+          fi
 
           # Copy music
           mkdir -p remotion-composer/public/music
-          cp -r "projects/${{ github.event.inputs.project }}/assets/music/"* remotion-composer/public/music/ 2>/dev/null || true
+          if [ -d "$PROJECT/assets/music" ]; then
+            cp "$PROJECT/assets/music/"* remotion-composer/public/music/ 2>/dev/null || true
+          fi
 
           # Copy components to remotion-composer src (where tsconfig applies)
           mkdir -p remotion-composer/src/components/kiss-physiology-shorts
-          cp "projects/${{ github.event.inputs.project }}/MuscleSilhouette.tsx" remotion-composer/src/components/kiss-physiology-shorts/
-          cp "projects/${{ github.event.inputs.project }}/StatCard.tsx" remotion-composer/src/components/kiss-physiology-shorts/
-          cp "projects/${{ github.event.inputs.project }}/HormoneCascade.tsx" remotion-composer/src/components/kiss-physiology-shorts/
-          cp "projects/${{ github.event.inputs.project }}/ParticleFlow.tsx" remotion-composer/src/components/kiss-physiology-shorts/
-          cp "projects/${{ github.event.inputs.project }}/FrequencyLadder.tsx" remotion-composer/src/components/kiss-physiology-shorts/
-          cp "projects/${{ github.event.inputs.project }}/KissPhysiologyShorts.tsx" remotion-composer/src/components/kiss-physiology-shorts/
+          for f in MuscleSilhouette.tsx StatCard.tsx HormoneCascade.tsx ParticleFlow.tsx FrequencyLadder.tsx KissPhysiologyShorts.tsx; do
+            if [ -f "$PROJECT/$f" ]; then
+              cp "$PROJECT/$f" remotion-composer/src/components/kiss-physiology-shorts/
+              echo "Copied $f"
+            else
+              echo "WARNING: $PROJECT/$f not found"
+            fi
+          done
+
+          ls -la remotion-composer/src/components/kiss-physiology-shorts/
 
       - name: Render video
         working-directory: remotion-composer
