@@ -16,7 +16,7 @@ import { ProductReveal, ProductRevealProps } from "./components/ProductReveal";
 import { CaptionOverlay, WordCaption } from "./components/CaptionOverlay";
 import { CollageBurst, CollageBurstProps } from "./CollageBurst";
 import { LyricOverlay, LyricOverlayProps, calculateLyricOverlayMetadata } from "./LyricOverlay";
-import { KissPhysiologyShorts } from "../projects/kiss-physiology-shorts/KissPhysiologyShorts";
+import { KissPhysiologyShorts } from "./components/kiss-physiology-shorts/KissPhysiologyShorts";
 
 // ---------------------------------------------------------------------------
 // Theme System — prevents every video from looking like dark fintech
