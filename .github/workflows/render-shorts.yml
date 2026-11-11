@@ -55,12 +55,13 @@ jobs:
             --props=../projects/${{ github.event.inputs.project }}/artifacts/composition_props.json \
             --concurrency=2 \
             --verbose 2>&1 | tee render.log
-          echo "Exit code: ${PIPESTATUS[0]}"
+          RENDER_EXIT=${PIPESTATUS[0]}
+          echo "Exit code: $RENDER_EXIT"
           ls -la out/
-
-      - name: Show render log (on failure)
-        if: failure()
-        run: cat remotion-composer/render.log
+          echo "=== RENDER LOG ==="
+          cat render.log
+          echo "=== END RENDER LOG ==="
+          exit $RENDER_EXIT
 
       - name: Upload video artifact
         uses: actions/upload-artifact@v4
