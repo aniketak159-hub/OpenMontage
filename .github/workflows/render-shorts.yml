@@ -58,6 +58,10 @@ jobs:
           echo "Exit code: ${PIPESTATUS[0]}"
           ls -la out/
 
+      - name: Show render log (on failure)
+        if: failure()
+        run: cat remotion-composer/render.log
+
       - name: Upload video artifact
         uses: actions/upload-artifact@v4
         with:
