@@ -16,6 +16,7 @@ import { ProductReveal, ProductRevealProps } from "./components/ProductReveal";
 import { CaptionOverlay, WordCaption } from "./components/CaptionOverlay";
 import { CollageBurst, CollageBurstProps } from "./CollageBurst";
 import { LyricOverlay, LyricOverlayProps, calculateLyricOverlayMetadata } from "./LyricOverlay";
+import { KissPhysiologyShorts } from "../projects/kiss-physiology-shorts/KissPhysiologyShorts";
 
 // ---------------------------------------------------------------------------
 // Theme System — prevents every video from looking like dark fintech
@@ -331,6 +332,17 @@ export const Root: React.FC = () => {
           fadeOutSeconds: 1.5,
           overlay: true,
         } as EndTagProps}
+      />
+      <Composition
+        id="KissPhysiologyShorts"
+        component={KissPhysiologyShorts}
+        durationInFrames={1650}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{
+          // Props will be passed via --props from composition_props.json
+        }}
       />
     </>
   );
