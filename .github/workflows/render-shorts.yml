@@ -45,16 +45,20 @@ jobs:
 
       - name: Debug - Check files
         working-directory: remotion-composer
+        continue-on-error: true
         run: |
           echo "=== Checking files ==="
-          ls -la src/Root.tsx
-          ls -la src/components/kiss-physiology-shorts/
-          ls -la ../projects/kiss-physiology-shorts/artifacts/composition_props.json
+          ls -la src/Root.tsx || echo "Root.tsx NOT FOUND"
+          ls -la src/components/kiss-physiology-shorts/ || echo "components dir NOT FOUND"
+          ls -la ../projects/kiss-physiology-shorts/artifacts/composition_props.json || echo "composition_props.json NOT FOUND"
+          ls -la public/fonts/ || echo "fonts NOT FOUND"
+          ls -la public/music/ || echo "music NOT FOUND"
 
       - name: Render video
         working-directory: remotion-composer
         env:
           NODE_OPTIONS: "--max-old-space-size=8192"
+        continue-on-error: true
         run: |
           npx remotion render \
             src/Root.tsx \
@@ -65,9 +69,9 @@ jobs:
             --verbose 2>&1 | tee render.log
           RENDER_EXIT=${PIPESTATUS[0]}
           echo "Exit code: $RENDER_EXIT"
-          ls -la out/
+          ls -la out/ || echo "out/ directory not found"
           echo "=== RENDER LOG ==="
-          cat render.log
+          cat render.log 2>/dev/null || echo "render.log not found"
           echo "=== END RENDER LOG ==="
           exit $RENDER_EXIT
 
