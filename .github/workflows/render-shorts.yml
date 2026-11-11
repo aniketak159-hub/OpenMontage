@@ -54,6 +54,7 @@ jobs:
             out/video.mp4 \
             --props=../projects/${{ github.event.inputs.project }}/artifacts/composition_props.json \
             --concurrency=2 2>&1 | tee render.log
+          ls -la out/
 
       - name: Upload video artifact
         uses: actions/upload-artifact@v4
