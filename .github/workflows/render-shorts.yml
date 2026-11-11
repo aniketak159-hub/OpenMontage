@@ -60,6 +60,10 @@ jobs:
           NODE_OPTIONS: "--max-old-space-size=8192"
         continue-on-error: true
         run: |
+          echo "=== Checking composition ==="
+          npx remotion compositions src/Root.tsx
+
+          echo "=== Starting render ==="
           npx remotion render \
             src/Root.tsx \
             ${{ github.event.inputs.composition }} \
