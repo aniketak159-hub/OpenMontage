@@ -51,17 +51,13 @@ jobs:
           mkdir -p remotion-composer/public/music
           cp -r "projects/${{ github.event.inputs.project }}/assets/music/"* remotion-composer/public/music/ 2>/dev/null || true
 
-          # Copy components
-          mkdir -p remotion-composer/src/components/kiss-physiology-shorts
-          cp -r "projects/${{ github.event.inputs.project }}/"MuscleSilhouette.tsx "projects/${{ github.event.inputs.project }}/"StatCard.tsx "projects/${{ github.event.inputs.project }}/"HormoneCascade.tsx "projects/${{ github.event.inputs.project }}/"ParticleFlow.tsx "projects/${{ github.event.inputs.project }}/"FrequencyLadder.tsx "projects/${{ github.event.inputs.project }}/"KissPhysiologyShorts.tsx remotion-composer/src/components/kiss-physiology-shorts/ 2>/dev/null || true
-
       - name: Render video
         working-directory: remotion-composer
         env:
           NODE_OPTIONS: "--max-old-space-size=8192"
         run: |
           npx remotion render \
-            src/Root.tsx \
+            ../projects/${{ github.event.inputs.project }}/index.tsx \
             ${{ github.event.inputs.composition }} \
             out/video.mp4 \
             --props=../projects/${{ github.event.inputs.project }}/artifacts/composition_props.json \
