@@ -53,13 +53,12 @@ jobs:
 
           # Copy components to remotion-composer src (where tsconfig applies)
           mkdir -p remotion-composer/src/components/kiss-physiology-shorts
-          cp "projects/${{ github.event.inputs.project }}/MuscleSilhouette.tsx" \
-             "projects/${{ github.event.inputs.project }}/StatCard.tsx" \
-             "projects/${{ github.event.inputs.project }}/HormoneCascade.tsx" \
-             "projects/${{ github.event.inputs.project }}/ParticleFlow.tsx" \
-             "projects/${{ github.event.inputs.project }}/FrequencyLadder.tsx" \
-             "projects/${{ github.event.inputs.project }}/KissPhysiologyShorts.tsx" \
-             remotion-composer/src/components/kiss-physiology-shorts/
+          cp "projects/${{ github.event.inputs.project }}/MuscleSilhouette.tsx" remotion-composer/src/components/kiss-physiology-shorts/
+          cp "projects/${{ github.event.inputs.project }}/StatCard.tsx" remotion-composer/src/components/kiss-physiology-shorts/
+          cp "projects/${{ github.event.inputs.project }}/HormoneCascade.tsx" remotion-composer/src/components/kiss-physiology-shorts/
+          cp "projects/${{ github.event.inputs.project }}/ParticleFlow.tsx" remotion-composer/src/components/kiss-physiology-shorts/
+          cp "projects/${{ github.event.inputs.project }}/FrequencyLadder.tsx" remotion-composer/src/components/kiss-physiology-shorts/
+          cp "projects/${{ github.event.inputs.project }}/KissPhysiologyShorts.tsx" remotion-composer/src/components/kiss-physiology-shorts/
 
       - name: Render video
         working-directory: remotion-composer
