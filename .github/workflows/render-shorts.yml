@@ -53,7 +53,9 @@ jobs:
             ${{ github.event.inputs.composition }} \
             out/video.mp4 \
             --props=../projects/${{ github.event.inputs.project }}/artifacts/composition_props.json \
-            --concurrency=2 2>&1 | tee render.log
+            --concurrency=2 \
+            --verbose 2>&1 | tee render.log
+          echo "Exit code: ${PIPESTATUS[0]}"
           ls -la out/
 
       - name: Upload video artifact
