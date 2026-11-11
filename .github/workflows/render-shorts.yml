@@ -43,6 +43,14 @@ jobs:
 
       # Assets and components are pre-copied to remotion-composer in the repository
 
+      - name: Debug - Check files
+        working-directory: remotion-composer
+        run: |
+          echo "=== Checking files ==="
+          ls -la src/Root.tsx
+          ls -la src/components/kiss-physiology-shorts/
+          ls -la ../projects/kiss-physiology-shorts/artifacts/composition_props.json
+
       - name: Render video
         working-directory: remotion-composer
         env:
