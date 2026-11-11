@@ -53,13 +53,21 @@ jobs:
             ${{ github.event.inputs.composition }} \
             out/video.mp4 \
             --props=../projects/${{ github.event.inputs.project }}/artifacts/composition_props.json \
-            --concurrency=2
+            --concurrency=2 2>&1 | tee render.log
 
       - name: Upload video artifact
         uses: actions/upload-artifact@v4
         with:
           name: rendered-video
           path: remotion-composer/out/video.mp4
+          retention-days: 7
+
+      - name: Upload render log (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: render-log
+          path: remotion-composer/render.log
           retention-days: 7
 
       - name: Create release (if on main)
